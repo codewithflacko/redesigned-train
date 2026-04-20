@@ -1,11 +1,13 @@
 import SwiftUI
 
 struct DriverLoginView: View {
-    @State private var driverID = ""
-    @State private var password = ""
-    @State private var isLoading = false
+    @EnvironmentObject var appState: AppState
+    @State private var driverID      = ""
+    @State private var password      = ""
+    @State private var isLoading     = false
     @State private var selectedDriver: Driver? = nil
     @State private var showDashboard = false
+    @State private var authError: String? = nil
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
@@ -68,7 +70,7 @@ struct DriverLoginView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal, 24)
 
-                        ForEach(Driver.sampleDrivers) { driver in
+                        ForEach(appState.drivers) { driver in
                             DriverProfileCard(
                                 driver: driver,
                                 isSelected: selectedDriver?.id == driver.id
@@ -89,6 +91,23 @@ struct DriverLoginView: View {
                                        icon: "person.text.rectangle.fill", text: $driverID)
                             SecureInputField(label: "Password", placeholder: "••••••••",
                                              icon: "lock", text: $password)
+
+                            // Auth error banner
+                            if let err = authError {
+                                HStack(spacing: 8) {
+                                    Image(systemName: "exclamationmark.circle.fill")
+                                        .foregroundColor(Color(hex: "E74C3C"))
+                                    Text(err)
+                                        .font(.system(size: 13, design: .rounded))
+                                        .foregroundColor(Color(hex: "E74C3C"))
+                                }
+                                .padding(12)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .fill(Color(hex: "E74C3C").opacity(0.08))
+                                )
+                            }
 
                             Button(action: handleLogin) {
                                 ZStack {
@@ -118,17 +137,31 @@ struct DriverLoginView: View {
         }
         .navigationBarHidden(true)
         .fullScreenCover(isPresented: $showDashboard) {
-            if let driver = selectedDriver {
-                DriverDashboardView(driver: driver)
+            if let driver = selectedDriver,
+               let idx = appState.drivers.firstIndex(where: { $0.id == driver.id }) {
+                DriverDashboardView(driver: $appState.drivers[idx])
             }
         }
     }
 
     private func handleLogin() {
+        guard !driverID.isEmpty, !password.isEmpty else {
+            authError = "Please enter your Driver ID and password."
+            return
+        }
+        authError = nil
         isLoading = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
-            isLoading = false
-            showDashboard = true
+        Task {
+            do {
+                // Driver email derived from the selected driver profile ID
+                let email = "driver@mbr.edu"
+                try await AuthManager.shared.login(email: email, password: password, role: .driver)
+                isLoading = false
+                showDashboard = true
+            } catch {
+                isLoading = false
+                authError = error.localizedDescription
+            }
         }
     }
 }
@@ -223,4 +256,5 @@ struct DriverProfileCard: View {
 
 #Preview {
     DriverLoginView()
+        .environmentObject(AppState.shared)
 }

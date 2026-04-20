@@ -4,12 +4,15 @@ import PhotosUI
 
 // MARK: - Parent Dashboard
 struct ParentDashboardView: View {
-    @State private var children = Child.sampleChildren
+    @EnvironmentObject var appState: AppState
     @State private var showNotifications = false
+    @State private var notifications = ParentNotification.samples
     @Environment(\.dismiss) private var dismiss
 
-    private var arrivedCount: Int { children.filter { $0.busTracking.hasArrivedAtSchool }.count }
-    private var enRouteCount: Int { children.filter { !$0.busTracking.hasArrivedAtSchool && !$0.isAbsentToday }.count }
+    private var unreadCount: Int { notifications.filter { !$0.isRead }.count }
+
+    private var arrivedCount: Int { appState.children.filter { $0.busTracking.hasArrivedAtSchool }.count }
+    private var enRouteCount: Int { appState.children.filter { !$0.busTracking.hasArrivedAtSchool && !$0.isAbsentToday }.count }
 
     var body: some View {
         ZStack {
@@ -24,8 +27,8 @@ struct ParentDashboardView: View {
                     summaryStrip
 
                     // Child cards
-                    ForEach($children) { $child in
-                        ChildTrackerCard(child: $child)
+                    ForEach(appState.children.indices, id: \.self) { idx in
+                        ChildTrackerCard(child: $appState.children[idx])
                             .padding(.horizontal, 20)
                     }
 
@@ -34,6 +37,9 @@ struct ParentDashboardView: View {
             }
         }
         .navigationBarHidden(true)
+        .sheet(isPresented: $showNotifications) {
+            NotificationCenterView(notifications: $notifications)
+        }
     }
 
     // MARK: - Header
@@ -47,6 +53,42 @@ struct ParentDashboardView: View {
 
             VStack(spacing: 0) {
                 HStack(alignment: .top) {
+                    Button(action: { dismiss() }) {
+                        HStack(spacing: 5) {
+                            Image(systemName: "chevron.left")
+                                .font(.system(size: 14, weight: .semibold))
+                            Text("Back")
+                                .font(.system(size: 14, weight: .medium, design: .rounded))
+                        }
+                        .foregroundColor(.white.opacity(0.85))
+                    }
+                    Spacer()
+                    Button(action: { showNotifications.toggle() }) {
+                        ZStack(alignment: .topTrailing) {
+                            Image(systemName: "bell.fill")
+                                .font(.system(size: 22))
+                                .foregroundColor(.white)
+                            if unreadCount > 0 {
+                                ZStack {
+                                    Circle()
+                                        .fill(Color(hex: "E74C3C"))
+                                        .frame(width: unreadCount > 9 ? 16 : 10,
+                                               height: unreadCount > 9 ? 16 : 10)
+                                    if unreadCount > 1 {
+                                        Text("\(min(unreadCount, 9))\(unreadCount > 9 ? "+" : "")")
+                                            .font(.system(size: 7, weight: .black))
+                                            .foregroundColor(.white)
+                                    }
+                                }
+                                .offset(x: 4, y: -4)
+                            }
+                        }
+                    }
+                }
+                .padding(.horizontal, 24)
+                .padding(.top, 56)
+
+                HStack {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("Good Morning,")
                             .font(.system(size: 14, weight: .medium, design: .rounded))
@@ -59,31 +101,20 @@ struct ParentDashboardView: View {
                             .foregroundColor(.white.opacity(0.6))
                     }
                     Spacer()
-                    Button(action: { showNotifications.toggle() }) {
-                        ZStack(alignment: .topTrailing) {
-                            Image(systemName: "bell.fill")
-                                .font(.system(size: 22))
-                                .foregroundColor(.white)
-                            Circle()
-                                .fill(Color(hex: "E74C3C"))
-                                .frame(width: 10, height: 10)
-                                .offset(x: 3, y: -3)
-                        }
-                    }
                 }
                 .padding(.horizontal, 24)
-                .padding(.top, 60)
+                .padding(.top, 10)
                 .padding(.bottom, 24)
             }
         }
-        .frame(height: 140)
+        .frame(height: 170)
     }
 
     // MARK: - Summary Strip
     private var summaryStrip: some View {
         HStack(spacing: 12) {
             SummaryPill(
-                value: "\(children.count)",
+                value: "\(appState.children.count)",
                 label: "Children",
                 icon: "person.2.fill",
                 color: Color(hex: "2F6BAD")
@@ -206,7 +237,7 @@ struct ChildTrackerCard: View {
             titleVisibility: .visible
         ) {
             Button("Mark as Absent Today", role: .destructive) {
-                child.isAbsentToday = true
+                AppState.shared.setChildAbsent(child.id, absent: true)
             }
             Button("Cancel", role: .cancel) {}
         } message: {
@@ -387,7 +418,7 @@ struct ChildTrackerCard: View {
                 .font(.system(size: 12, design: .rounded))
                 .foregroundColor(Color.secondary.opacity(0.7))
 
-            Button(action: { child.isAbsentToday = false }) {
+            Button(action: { AppState.shared.setChildAbsent(child.id, absent: false) }) {
                 Text("Undo — Mark as Present")
                     .font(.system(size: 13, weight: .semibold, design: .rounded))
                     .foregroundColor(Color(hex: "2ECC71"))
@@ -707,4 +738,5 @@ struct ChildAvatarView: View {
 
 #Preview {
     ParentDashboardView()
+        .environmentObject(AppState.shared)
 }

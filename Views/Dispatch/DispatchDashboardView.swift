@@ -35,10 +35,12 @@ enum DispatchFilter: String, CaseIterable {
 
 // MARK: - Dispatch Dashboard
 struct DispatchDashboardView: View {
-    @State private var drivers: [Driver]       = Driver.sampleDrivers
+    @EnvironmentObject var appState: AppState
     @State private var selectedFilter: DispatchFilter = .all
     @State private var selectedDriver: Driver? = nil
     @Environment(\.dismiss) private var dismiss
+
+    private var drivers: [Driver] { appState.drivers }
 
     // MARK: Computed counts
     private var sickDrivers:  [Driver] { drivers.filter { $0.isSick } }
@@ -108,7 +110,7 @@ struct DispatchDashboardView: View {
         }
         .navigationBarHidden(true)
         .sheet(item: $selectedDriver) { driver in
-            DriverDetailSheet(driver: driver, allDrivers: $drivers)
+            DriverDetailSheet(driver: driver, allDrivers: $appState.drivers)
         }
     }
 
@@ -361,6 +363,7 @@ struct DispatchStatPill: View {
 struct DriverFleetCard: View {
     let driver: Driver
     let onTap: () -> Void
+    @ObservedObject private var chatStore = ChatStore.shared
 
     private var progressFraction: Double {
         guard driver.route.totalStops > 0 else { return 0 }
@@ -422,6 +425,19 @@ struct DriverFleetCard: View {
                     Image(systemName: "chevron.right")
                         .font(.system(size: 12, weight: .semibold))
                         .foregroundColor(.secondary.opacity(0.4))
+
+                    // Unread message badge
+                    let unread = chatStore.unreadCount(for: driver.id, as: .dispatch)
+                    if unread > 0 {
+                        ZStack {
+                            Circle()
+                                .fill(Color(hex: "E74C3C"))
+                                .frame(width: 20, height: 20)
+                            Text("\(unread)")
+                                .font(.system(size: 10, weight: .black))
+                                .foregroundColor(.white)
+                        }
+                    }
                 }
                 .padding(.horizontal, 16)
                 .padding(.top, 14)
@@ -481,7 +497,9 @@ struct DriverFleetCard: View {
 struct DriverDetailSheet: View {
     let driver: Driver
     @Binding var allDrivers: [Driver]
+    @ObservedObject private var chatStore = ChatStore.shared
     @Environment(\.dismiss) private var dismiss
+    @State private var showChat = false
 
     private var availableDrivers: [Driver] {
         allDrivers.filter { $0.id != driver.id && !$0.isSick && $0.route.status == .notStarted }
@@ -519,6 +537,24 @@ struct DriverDetailSheet: View {
                     Button("Done") { dismiss() }
                         .font(.system(size: 15, weight: .semibold, design: .rounded))
                 }
+                ToolbarItem(placement: .primaryAction) {
+                    Button {
+                        showChat = true
+                    } label: {
+                        ZStack(alignment: .topTrailing) {
+                            Image(systemName: "message.fill")
+                                .font(.system(size: 15))
+                                .foregroundColor(Color(hex: "2F80ED"))
+                            let unread = chatStore.unreadCount(for: driver.id, as: .dispatch)
+                            if unread > 0 {
+                                Circle()
+                                    .fill(Color(hex: "E74C3C"))
+                                    .frame(width: 9, height: 9)
+                                    .offset(x: 3, y: -3)
+                            }
+                        }
+                    }
+                }
                 ToolbarItem(placement: .principal) {
                     HStack(spacing: 6) {
                         Circle()
@@ -528,6 +564,13 @@ struct DriverDetailSheet: View {
                             .font(.system(size: 16, weight: .bold, design: .rounded))
                     }
                 }
+            }
+            .sheet(isPresented: $showChat) {
+                DriverDispatchChatView(
+                    driverID: driver.id,
+                    driverName: driver.name,
+                    viewerRole: .dispatch
+                )
             }
         }
         .presentationDetents([.large])
@@ -862,4 +905,5 @@ struct DriverRouteMapView: View {
 // MARK: - Preview
 #Preview {
     DispatchDashboardView()
+        .environmentObject(AppState.shared)
 }

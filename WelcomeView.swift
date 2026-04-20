@@ -25,7 +25,7 @@ extension Color {
 
 // MARK: - Portal Destination
 enum PortalDestination: Hashable {
-    case parent, dispatch, driver
+    case parent, dispatch, driver, admin
 }
 
 // MARK: - Welcome View
@@ -75,35 +75,45 @@ struct WelcomeView: View {
 
                     Spacer().frame(maxHeight: 32)
 
-                    // Portal buttons — floating icon cards
-                    VStack(spacing: 8) {
+                    // Portal buttons — 2x2 grid
+                    VStack(spacing: 12) {
                         Text("SELECT YOUR PORTAL")
                             .font(.system(size: 11, weight: .bold, design: .rounded))
                             .foregroundColor(.white.opacity(0.7))
                             .tracking(2.5)
 
-                        HStack(spacing: 16) {
-                            FloatingPortalCard(
+                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
+                            PortalSquareCard(
                                 title: "Parent",
+                                subtitle: "Track your child",
                                 icon: "figure.2.and.child.holdinghands",
                                 color: Color(hex: "2ECC71")
                             ) { path.append(PortalDestination.parent) }
 
-                            FloatingPortalCard(
+                            PortalSquareCard(
                                 title: "Dispatch",
+                                subtitle: "Monitor routes",
                                 icon: "map.fill",
                                 color: Color(hex: "2F80ED")
                             ) { path.append(PortalDestination.dispatch) }
 
-                            FloatingPortalCard(
+                            PortalSquareCard(
                                 title: "Driver",
+                                subtitle: "Manage your route",
                                 icon: "steeringwheel",
                                 color: Color(hex: "F5A623")
                             ) { path.append(PortalDestination.driver) }
+
+                            PortalSquareCard(
+                                title: "Admin",
+                                subtitle: "School overview",
+                                icon: "building.columns.fill",
+                                color: Color(hex: "8E44AD")
+                            ) { path.append(PortalDestination.admin) }
                         }
-                        .padding(.horizontal, 32)
                     }
-                    .padding(.bottom, 48)
+                    .padding(.horizontal, 24)
+                    .padding(.bottom, 40)
                 }
             }
             .navigationDestination(for: PortalDestination.self) { destination in
@@ -111,6 +121,7 @@ struct WelcomeView: View {
                 case .parent:   ParentLoginView()
                 case .dispatch: DispatchLoginView()
                 case .driver:   DriverLoginView()
+                case .admin:    AdminLoginView()
                 }
             }
         }
@@ -120,6 +131,66 @@ struct WelcomeView: View {
 // MARK: - Floating Portal Card
 struct FloatingPortalCard: View {
     let title: String
+    let subtitle: String
+    let icon: String
+    let color: Color
+    var action: () -> Void = {}
+
+    @State private var pressed = false
+
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 14) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 14)
+                        .fill(color)
+                        .frame(width: 46, height: 46)
+                        .shadow(color: color.opacity(0.4), radius: 6, y: 3)
+                    Image(systemName: icon)
+                        .font(.system(size: 20, weight: .semibold))
+                        .foregroundColor(.white)
+                }
+
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(title)
+                        .font(.system(size: 15, weight: .bold, design: .rounded))
+                        .foregroundColor(.white)
+                    Text(subtitle)
+                        .font(.system(size: 12, design: .rounded))
+                        .foregroundColor(.white.opacity(0.75))
+                }
+
+                Spacer()
+
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 12, weight: .semibold))
+                    .foregroundColor(.white.opacity(0.5))
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+            .background(
+                RoundedRectangle(cornerRadius: 18)
+                    .fill(.white.opacity(0.2))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 18)
+                            .strokeBorder(.white.opacity(0.35), lineWidth: 1)
+                    )
+            )
+            .scaleEffect(pressed ? 0.97 : 1.0)
+        }
+        .buttonStyle(.plain)
+        .simultaneousGesture(
+            DragGesture(minimumDistance: 0)
+                .onChanged { _ in withAnimation(.easeIn(duration: 0.1)) { pressed = true } }
+                .onEnded   { _ in withAnimation(.spring(response: 0.3)) { pressed = false } }
+        )
+    }
+}
+
+// MARK: - Portal Square Card (2x2 grid tile)
+struct PortalSquareCard: View {
+    let title: String
+    let subtitle: String
     let icon: String
     let color: Color
     var action: () -> Void = {}
@@ -130,36 +201,35 @@ struct FloatingPortalCard: View {
         Button(action: action) {
             VStack(spacing: 10) {
                 ZStack {
-                    RoundedRectangle(cornerRadius: 22)
+                    RoundedRectangle(cornerRadius: 16)
                         .fill(color)
-                        .frame(width: 64, height: 64)
-                        .shadow(color: color.opacity(0.45), radius: 10, y: 5)
-
+                        .frame(width: 54, height: 54)
+                        .shadow(color: color.opacity(0.45), radius: 8, y: 4)
                     Image(systemName: icon)
-                        .font(.system(size: 26, weight: .semibold))
+                        .font(.system(size: 24, weight: .semibold))
                         .foregroundColor(.white)
                 }
-
-                Text(title)
-                    .font(.system(size: 13, weight: .bold, design: .rounded))
-                    .foregroundColor(.white)
-                    .shadow(color: .black.opacity(0.2), radius: 2, y: 1)
-
-                Text("Login →")
-                    .font(.system(size: 10, weight: .medium, design: .rounded))
-                    .foregroundColor(.white.opacity(0.75))
+                VStack(spacing: 3) {
+                    Text(title)
+                        .font(.system(size: 15, weight: .bold, design: .rounded))
+                        .foregroundColor(.white)
+                    Text(subtitle)
+                        .font(.system(size: 11, design: .rounded))
+                        .foregroundColor(.white.opacity(0.7))
+                        .multilineTextAlignment(.center)
+                }
             }
             .frame(maxWidth: .infinity)
-            .padding(.vertical, 16)
+            .padding(.vertical, 20)
             .background(
-                RoundedRectangle(cornerRadius: 24)
+                RoundedRectangle(cornerRadius: 20)
                     .fill(.white.opacity(0.18))
                     .overlay(
-                        RoundedRectangle(cornerRadius: 24)
-                            .strokeBorder(.white.opacity(0.35), lineWidth: 1)
+                        RoundedRectangle(cornerRadius: 20)
+                            .strokeBorder(color.opacity(0.5), lineWidth: 1.5)
                     )
             )
-            .scaleEffect(pressed ? 0.94 : 1.0)
+            .scaleEffect(pressed ? 0.96 : 1.0)
         }
         .buttonStyle(.plain)
         .simultaneousGesture(

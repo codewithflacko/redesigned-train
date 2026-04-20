@@ -5,6 +5,7 @@ struct ParentLoginView: View {
     @State private var password = ""
     @State private var isLoading = false
     @State private var showDashboard = false
+    @State private var authError: String? = nil
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
@@ -85,6 +86,23 @@ struct ParentLoginView: View {
                                 .foregroundColor(Color(hex: "2ECC71"))
                         }
 
+                        // Auth error banner
+                        if let err = authError {
+                            HStack(spacing: 8) {
+                                Image(systemName: "exclamationmark.circle.fill")
+                                    .foregroundColor(Color(hex: "E74C3C"))
+                                Text(err)
+                                    .font(.system(size: 13, design: .rounded))
+                                    .foregroundColor(Color(hex: "E74C3C"))
+                            }
+                            .padding(12)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(Color(hex: "E74C3C").opacity(0.08))
+                            )
+                        }
+
                         // Sign In button
                         Button(action: handleLogin) {
                             ZStack {
@@ -133,10 +151,21 @@ struct ParentLoginView: View {
     }
 
     private func handleLogin() {
+        guard !email.isEmpty, !password.isEmpty else {
+            authError = "Please enter your email and password."
+            return
+        }
+        authError = nil
         isLoading = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            isLoading = false
-            showDashboard = true
+        Task {
+            do {
+                try await AuthManager.shared.login(email: email, password: password, role: .parent)
+                isLoading = false
+                showDashboard = true
+            } catch {
+                isLoading = false
+                authError = error.localizedDescription
+            }
         }
     }
 }

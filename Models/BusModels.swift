@@ -389,6 +389,7 @@ extension Driver {
     ]
 }
 
+extension Child {
     static var sampleChildren: [Child] = [
         Child(
             name: "Emma",
@@ -446,3 +447,4 @@ extension Driver {
         )
     ]
 }
+
