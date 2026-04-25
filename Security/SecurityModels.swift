@@ -73,6 +73,9 @@ enum SecurityEventType: String, Codable {
     case chatMessageSent     = "chat_message_sent"
     // Session
     case concurrentSession   = "concurrent_session"
+    // Device integrity
+    case jailbreakDetected   = "jailbreak_detected"
+    case mitmDetected        = "mitm_detected"
 }
 
 // MARK: - Security Event (sent to backend)

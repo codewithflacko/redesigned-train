@@ -70,7 +70,7 @@ final class AuthManager: ObservableObject {
 
         let (data, response): (Data, URLResponse)
         do {
-            (data, response) = try await URLSession.shared.data(for: request)
+            (data, response) = try await NetworkSession.pinned.data(for: request)
         } catch {
             SecurityMonitor.shared.reportFailedLogin(email: email, role: role)
             throw AuthError.networkError(error.localizedDescription)
@@ -133,7 +133,7 @@ final class AuthManager: ObservableObject {
             var req = URLRequest(url: url)
             req.httpMethod = "POST"
             req.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-            _ = try? await URLSession.shared.data(for: req)
+            _ = try? await NetworkSession.pinned.data(for: req)
         }
     }
 

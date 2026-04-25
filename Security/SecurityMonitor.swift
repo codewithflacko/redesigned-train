@@ -145,7 +145,7 @@ final class SecurityMonitor {
 
         do {
             request.httpBody = try JSONEncoder().encode(payload)
-            _ = try await URLSession.shared.data(for: request)
+            _ = try await NetworkSession.pinned.data(for: request)
         } catch {
             // Silent failure — security monitoring must never crash the app
         }

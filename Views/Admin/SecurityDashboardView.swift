@@ -602,7 +602,7 @@ final class SecurityDashboardViewModel: ObservableObject {
         var req = URLRequest(url: url)
         req.httpMethod = "PATCH"
         req.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        _ = try? await URLSession.shared.data(for: req)
+        _ = try? await NetworkSession.pinned.data(for: req)
 
         // Refresh stats and audit log to reflect dismissal
         async let statsRefresh = fetch(ThreatStatsResponse.self, path: "/security/stats")
@@ -618,7 +618,7 @@ final class SecurityDashboardViewModel: ObservableObject {
         }
         var req = URLRequest(url: url)
         req.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        let (data, _) = try await URLSession.shared.data(for: req)
+        let (data, _) = try await NetworkSession.pinned.data(for: req)
         return try JSONDecoder().decode(T.self, from: data)
     }
 }
