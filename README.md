@@ -77,12 +77,14 @@ Select the `MagicBusRoute` scheme and run on a simulator or device.
 
 ## 🔑 Demo Credentials
 
-| Role       | Email               | Password     |
-|------------|---------------------|--------------|
-| 👨‍💼 Admin    | admin@mbr.edu       | Admin123!    |
-| 👩‍👧 Parent   | parent@mbr.edu      | Parent123!   |
-| 🚌 Driver   | driver@mbr.edu      | Driver123!   |
-| 📡 Dispatch | dispatch@mbr.edu    | Dispatch123! |
+| Role       | Email               |
+|------------|---------------------|
+| 👨‍💼 Admin    | admin@mbr.edu       |
+| 👩‍👧 Parent   | parent@mbr.edu      |
+| 🚌 Driver   | driver@mbr.edu      |
+| 📡 Dispatch | dispatch@mbr.edu    |
+
+> 🔒 Passwords are not included here for security. Contact the project owner for access.
 
 ---
 
