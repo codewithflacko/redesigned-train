@@ -5,7 +5,9 @@ import PhotosUI
 // MARK: - Parent Dashboard
 struct ParentDashboardView: View {
     @EnvironmentObject var appState: AppState
+    @ObservedObject private var auth = AuthManager.shared
     @State private var showNotifications = false
+    @State private var showInviteSheet = false
     @State private var notifications = ParentNotification.samples
     @Environment(\.dismiss) private var dismiss
 
@@ -40,6 +42,9 @@ struct ParentDashboardView: View {
         .sheet(isPresented: $showNotifications) {
             NotificationCenterView(notifications: $notifications)
         }
+        .sheet(isPresented: $showInviteSheet) {
+            InviteParentView()
+        }
     }
 
     // MARK: - Header
@@ -63,24 +68,33 @@ struct ParentDashboardView: View {
                         .foregroundColor(.white.opacity(0.85))
                     }
                     Spacer()
-                    Button(action: { showNotifications.toggle() }) {
-                        ZStack(alignment: .topTrailing) {
-                            Image(systemName: "bell.fill")
-                                .font(.system(size: 22))
-                                .foregroundColor(.white)
-                            if unreadCount > 0 {
-                                ZStack {
-                                    Circle()
-                                        .fill(Color(hex: "E74C3C"))
-                                        .frame(width: unreadCount > 9 ? 16 : 10,
-                                               height: unreadCount > 9 ? 16 : 10)
-                                    if unreadCount > 1 {
-                                        Text("\(min(unreadCount, 9))\(unreadCount > 9 ? "+" : "")")
-                                            .font(.system(size: 7, weight: .black))
-                                            .foregroundColor(.white)
+                    HStack(spacing: 14) {
+                        if auth.accessLevel == "full" {
+                            Button(action: { showInviteSheet = true }) {
+                                Image(systemName: "person.badge.plus")
+                                    .font(.system(size: 20))
+                                    .foregroundColor(.white)
+                            }
+                        }
+                        Button(action: { showNotifications.toggle() }) {
+                            ZStack(alignment: .topTrailing) {
+                                Image(systemName: "bell.fill")
+                                    .font(.system(size: 22))
+                                    .foregroundColor(.white)
+                                if unreadCount > 0 {
+                                    ZStack {
+                                        Circle()
+                                            .fill(Color(hex: "E74C3C"))
+                                            .frame(width: unreadCount > 9 ? 16 : 10,
+                                                   height: unreadCount > 9 ? 16 : 10)
+                                        if unreadCount > 1 {
+                                            Text("\(min(unreadCount, 9))\(unreadCount > 9 ? "+" : "")")
+                                                .font(.system(size: 7, weight: .black))
+                                                .foregroundColor(.white)
+                                        }
                                     }
+                                    .offset(x: 4, y: -4)
                                 }
-                                .offset(x: 4, y: -4)
                             }
                         }
                     }
@@ -172,6 +186,7 @@ struct SummaryPill: View {
 // MARK: - Child Tracker Card
 struct ChildTrackerCard: View {
     @Binding var child: Child
+    @ObservedObject private var auth = AuthManager.shared
     @State private var showAbsenceSheet = false
     @State private var isPulsing = false
     @State private var mapExpanded = false
@@ -209,7 +224,11 @@ struct ChildTrackerCard: View {
 
                     statusRow
 
-                    absenceButton
+                    if auth.accessLevel == "full" {
+                        absenceButton
+                    } else {
+                        viewOnlyBadge
+                    }
                 }
                 .padding(16)
             }
@@ -405,6 +424,28 @@ struct ChildTrackerCard: View {
         .buttonStyle(.plain)
     }
 
+    // MARK: - View-Only Badge
+    private var viewOnlyBadge: some View {
+        HStack(spacing: 8) {
+            Image(systemName: "lock.fill")
+                .font(.system(size: 13, weight: .semibold))
+            Text("View Only — contact the primary parent to report absences")
+                .font(.system(size: 12, weight: .medium, design: .rounded))
+                .multilineTextAlignment(.center)
+        }
+        .foregroundColor(.secondary)
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 12)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.gray.opacity(0.07))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .strokeBorder(Color.gray.opacity(0.15), lineWidth: 1)
+                )
+        )
+    }
+
     // MARK: - Absent Notice
     private var absentNotice: some View {
         VStack(spacing: 10) {
@@ -456,7 +497,7 @@ struct BusMapView: View {
         self._isExpanded = isExpanded
 
         // Build interpolated waypoints
-        let steps = 50
+        let steps = 120
         var pts: [CLLocationCoordinate2D] = []
         for (from, to) in [(tracking.busCoordinate, tracking.stopCoordinate),
                            (tracking.stopCoordinate, tracking.schoolCoordinate)] {
@@ -480,7 +521,7 @@ struct BusMapView: View {
 
         let initialRegion = MKCoordinateRegion(
             center: tracking.busCoordinate,
-            span: MKCoordinateSpan(latitudeDelta: 0.018, longitudeDelta: 0.018)
+            span: MKCoordinateSpan(latitudeDelta: 0.06, longitudeDelta: 0.06)
         )
         self._cameraPosition = State(initialValue: .region(initialRegion))
     }
@@ -562,6 +603,16 @@ struct BusMapView: View {
             guard !tracking.hasArrivedAtSchool else { return }
             await animateBus()
         }
+        // Camera follow — runs on main thread so withAnimation is reliable
+        .onChange(of: liveBusPosition.latitude) { _, _ in
+            guard followBus else { return }
+            withAnimation(.linear(duration: 4.8)) {
+                cameraPosition = .region(MKCoordinateRegion(
+                    center: liveBusPosition,
+                    span: MKCoordinateSpan(latitudeDelta: 0.025, longitudeDelta: 0.025)
+                ))
+            }
+        }
         // Pulse the LIVE dot
         .onAppear {
             withAnimation(.easeInOut(duration: 0.8).repeatForever(autoreverses: true)) {
@@ -590,23 +641,20 @@ struct BusMapView: View {
     // MARK: - Bus animation loop
     private func animateBus() async {
         while waypointIndex < waypoints.count - 1 {
-            try? await Task.sleep(nanoseconds: 600_000_000) // move every 0.6s
+            try? await Task.sleep(nanoseconds: 5_000_000_000)
             waypointIndex = min(waypointIndex + 1, waypoints.count - 1)
             liveBusPosition = waypoints[waypointIndex]
-
-            if followBus {
-                withAnimation(.easeInOut(duration: 0.5)) {
-                    cameraPosition = .region(MKCoordinateRegion(
-                        center: liveBusPosition,
-                        span: MKCoordinateSpan(latitudeDelta: 0.009, longitudeDelta: 0.009)
-                    ))
-                }
-            }
         }
-        // Reached school — brief pause, then loop from beginning (demo only)
-        try? await Task.sleep(nanoseconds: 3_000_000_000)
+        // Reached school — wait 2 minutes before looping (demo only)
+        try? await Task.sleep(nanoseconds: 120_000_000_000)
         waypointIndex = 0
         liveBusPosition = waypoints[0]
+        withAnimation(.easeInOut(duration: 1.5)) {
+            cameraPosition = .region(MKCoordinateRegion(
+                center: waypoints[0],
+                span: MKCoordinateSpan(latitudeDelta: 0.06, longitudeDelta: 0.06)
+            ))
+        }
         await animateBus()
     }
 }

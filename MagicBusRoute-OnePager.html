@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MagicBusRoute — One Pager</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, "SF Pro Display", "Helvetica Neue", sans-serif;
+      background: #fff;
+      color: #1A1A2E;
+      font-size: 13px;
+    }
+
+    /* ── PRINT ── */
+    @media print {
+      body { font-size: 12px; }
+      .page { width: 8.5in; min-height: 11in; padding: 0; box-shadow: none; }
+      @page { margin: 0; size: letter; }
+    }
+
+    .page {
+      width: 8.5in;
+      min-height: 11in;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 40px rgba(0,0,0,0.12);
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: linear-gradient(135deg, #1A0533 0%, #4A1A6B 55%, #8E44AD 100%);
+      padding: 28px 36px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .header-left { display: flex; align-items: center; gap: 16px; }
+    .header-icon {
+      width: 56px; height: 56px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px;
+    }
+    .header-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+    .header-subtitle {
+      font-size: 12px;
+      color: rgba(255,255,255,0.65);
+      margin-top: 3px;
+    }
+    .header-right { text-align: right; }
+    .header-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.85);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+    }
+    .header-district {
+      font-size: 11px;
+      color: rgba(255,255,255,0.5);
+      margin-top: 5px;
+    }
+
+    /* ── MISSION BAND ── */
+    .mission-band {
+      background: #F5F0FF;
+      border-left: 4px solid #8E44AD;
+      padding: 14px 36px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #4A1A6B;
+      font-style: italic;
+    }
+
+    /* ── BODY ── */
+    .body {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      padding: 0;
+    }
+
+    .col {
+      padding: 24px 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+    .col-left  { border-right: 1px solid #EEE; }
+
+    /* ── SECTIONS ── */
+    .section-label {
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: #8E44AD;
+      margin-bottom: 10px;
+    }
+
+    /* ── PROBLEM STATS ── */
+    .problem-stats {
+      display: flex;
+      gap: 0;
+      border: 1px solid #EEE;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .pstat {
+      flex: 1;
+      padding: 12px 10px;
+      text-align: center;
+      border-right: 1px solid #EEE;
+    }
+    .pstat:last-child { border-right: none; }
+    .pstat-val {
+      font-size: 22px;
+      font-weight: 900;
+      color: #E74C3C;
+      line-height: 1;
+    }
+    .pstat-lbl {
+      font-size: 9px;
+      color: #888;
+      margin-top: 4px;
+      line-height: 1.3;
+    }
+
+    .problem-desc {
+      font-size: 12px;
+      color: #555;
+      line-height: 1.6;
+    }
+    .problem-desc strong { color: #1A1A2E; }
+
+    /* ── SOLUTION ── */
+    .solution-text {
+      font-size: 12.5px;
+      color: #333;
+      line-height: 1.7;
+    }
+
+    .roles {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .role-pill {
+      background: #F5F0FF;
+      color: #4A1A6B;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid #D7BDF5;
+    }
+
+    /* ── TREND ── */
+    .trend-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .trend-year {
+      font-size: 11px;
+      font-weight: 700;
+      width: 38px;
+      flex-shrink: 0;
+    }
+    .bar-track {
+      flex: 1;
+      height: 20px;
+      background: #F4F4F6;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      padding-left: 8px;
+    }
+    .bar-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: #fff;
+      white-space: nowrap;
+    }
+    .trend-change {
+      font-size: 10px;
+      font-weight: 800;
+      width: 40px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .trend-note {
+      font-size: 9px;
+      color: #AAA;
+      margin-top: 4px;
+    }
+
+    /* ── IMPACT GRID ── */
+    .impact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+    .impact-cell {
+      background: #F9F6FF;
+      border: 1px solid #E8DAFF;
+      border-radius: 10px;
+      padding: 10px 8px;
+      text-align: center;
+    }
+    .impact-icon { font-size: 18px; margin-bottom: 5px; }
+    .impact-title {
+      font-size: 10px;
+      font-weight: 700;
+      color: #4A1A6B;
+      line-height: 1.3;
+    }
+    .impact-body {
+      font-size: 9px;
+      color: #888;
+      margin-top: 3px;
+      line-height: 1.4;
+    }
+
+    /* ── SECURITY ── */
+    .security-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+    .sec-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 10px;
+      background: #F5F0FF;
+      border-radius: 8px;
+      font-size: 10.5px;
+      font-weight: 600;
+      color: #4A1A6B;
+    }
+    .sec-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #8E44AD;
+      flex-shrink: 0;
+    }
+
+    /* ── TECH STACK ── */
+    .tech-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .tech-pill {
+      background: #1A1A2E;
+      color: #fff;
+      font-size: 9.5px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: #1A1A2E;
+      padding: 14px 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-left {
+      font-size: 10px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.6;
+    }
+    .footer-right {
+      font-size: 10px;
+      color: rgba(255,255,255,0.45);
+      text-align: right;
+    }
+    .footer-highlight {
+      color: #C77DFF;
+      font-weight: 700;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px;
+      background: #EEE;
+      margin: 2px 0;
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="header-icon">🚌</div>
+      <div>
+        <div class="header-title">MagicBusRoute</div>
+        <div class="header-subtitle">School Bus Intelligence Platform · Built for iOS</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="header-badge">Impact Overview</div>
+      <div class="header-district">Fulton County Schools · Atlanta, GA · 2024 – 2026</div>
+    </div>
+  </div>
+
+  <!-- MISSION -->
+  <div class="mission-band">
+    "Closing the communication gap between school districts and families — so fewer students miss school because of a missed bus."
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <!-- LEFT COLUMN -->
+    <div class="col col-left">
+
+      <!-- THE PROBLEM -->
+      <div>
+        <div class="section-label">The Problem</div>
+        <div class="problem-stats">
+          <div class="pstat">
+            <div class="pstat-val">1,450</div>
+            <div class="pstat-lbl">Students miss their bus daily<br/>(peak, Aug 2024)</div>
+          </div>
+          <div class="pstat">
+            <div class="pstat-val">261K</div>
+            <div class="pstat-lbl">Missed rides per year<br/>in one district</div>
+          </div>
+          <div class="pstat">
+            <div class="pstat-val" style="color:#F5A623">$2.3M</div>
+            <div class="pstat-lbl">Estimated annual cost<br/>to the district</div>
+          </div>
+        </div>
+        <p class="problem-desc" style="margin-top:10px;">
+          Transportation is a <strong>top-5 driver of chronic absenteeism</strong>, which affects
+          26% of US students post-COVID. When a bus is late or a student misses it,
+          <strong>no one knows until it's already a crisis.</strong> Parents call the school,
+          schools call dispatch, dispatch calls the driver — all reactive, all too late.
+        </p>
+      </div>
+
+      <!-- THE SOLUTION -->
+      <div>
+        <div class="section-label">The Solution</div>
+        <p class="solution-text">
+          MagicBusRoute is a <strong>real-time iOS platform</strong> that connects every party
+          in a single secure app — so a delayed bus triggers an alert before a parent even
+          wonders where their child is.
+        </p>
+        <div class="roles">
+          <span class="role-pill">👨‍👩‍👧 Parent</span>
+          <span class="role-pill">🚌 Driver</span>
+          <span class="role-pill">📡 Dispatch</span>
+          <span class="role-pill">🏫 Admin</span>
+        </div>
+      </div>
+
+      <!-- TREND -->
+      <div>
+        <div class="section-label">Is It Getting Better? — Yes.</div>
+
+        <div class="trend-row">
+          <span class="trend-year" style="color:#E74C3C;">2024</span>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:100%; background:#E74C3C;">
+              <span class="bar-label">958 / day avg</span>
+            </div>
+          </div>
+          <span class="trend-change" style="color:#AAA;">base</span>
+        </div>
+
+        <div class="trend-row">
+          <span class="trend-year" style="color:#F5A623;">2025</span>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:89%; background:#F5A623;">
+              <span class="bar-label">857 / day avg</span>
+            </div>
+          </div>
+          <span class="trend-change" style="color:#2ECC71;">−11%</span>
+        </div>
+
+        <div class="trend-row">
+          <span class="trend-year" style="color:#2ECC71;">2026</span>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:80%; background:#2ECC71;">
+              <span class="bar-label">767 / day avg*</span>
+            </div>
+          </div>
+          <span class="trend-change" style="color:#2ECC71;">−11%</span>
+        </div>
+
+        <div class="trend-note">* Jan–Apr 2026 only · School months · Fulton County, GA est.</div>
+      </div>
+
+      <!-- TECH STACK -->
+      <div>
+        <div class="section-label">Built On Apple Technologies</div>
+        <div class="tech-row">
+          <span class="tech-pill">SwiftUI</span>
+          <span class="tech-pill">Swift</span>
+          <span class="tech-pill">iOS 16+</span>
+          <span class="tech-pill">Swift Charts</span>
+          <span class="tech-pill">Core Location</span>
+          <span class="tech-pill">Push Notifications</span>
+          <span class="tech-pill">FastAPI Backend</span>
+          <span class="tech-pill">JWT Auth</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="col col-right">
+
+      <!-- IMPACT AREAS -->
+      <div>
+        <div class="section-label">6 Areas of Impact</div>
+        <div class="impact-grid">
+          <div class="impact-cell">
+            <div class="impact-icon">💰</div>
+            <div class="impact-title">Cost Reduction</div>
+            <div class="impact-body">$414K+ saved annually through fewer no-shows & rerouting</div>
+          </div>
+          <div class="impact-cell">
+            <div class="impact-icon">💬</div>
+            <div class="impact-title">Communication</div>
+            <div class="impact-body">Real-time loop between parent, driver & dispatch</div>
+          </div>
+          <div class="impact-cell">
+            <div class="impact-icon">🛡️</div>
+            <div class="impact-title">Trust & Safety</div>
+            <div class="impact-body">Live GPS, pickup verification & incident alerts</div>
+          </div>
+          <div class="impact-cell">
+            <div class="impact-icon">🎓</div>
+            <div class="impact-title">Attendance</div>
+            <div class="impact-body">Fewer missed buses = fewer missed school days</div>
+          </div>
+          <div class="impact-cell">
+            <div class="impact-icon">📊</div>
+            <div class="impact-title">Data & Insights</div>
+            <div class="impact-body">Admin trend dashboard to optimize routes & resources</div>
+          </div>
+          <div class="impact-cell">
+            <div class="impact-icon">🌱</div>
+            <div class="impact-title">Sustainability</div>
+            <div class="impact-body">Optimized routes reduce fuel use & district carbon footprint</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECURITY -->
+      <div>
+        <div class="section-label">Enterprise-Grade Security Architecture</div>
+        <div class="security-grid">
+          <div class="sec-item"><span class="sec-dot"></span>Biometric Authentication</div>
+          <div class="sec-item"><span class="sec-dot"></span>Certificate Pinning</div>
+          <div class="sec-item"><span class="sec-dot"></span>Jailbreak Detection</div>
+          <div class="sec-item"><span class="sec-dot"></span>JWT Revocation</div>
+          <div class="sec-item"><span class="sec-dot"></span>Session Timeout</div>
+          <div class="sec-item"><span class="sec-dot"></span>Screenshot Prevention</div>
+          <div class="sec-item"><span class="sec-dot"></span>Privacy Overlay</div>
+          <div class="sec-item"><span class="sec-dot"></span>Rate Limiting</div>
+        </div>
+        <p style="font-size:10px; color:#888; margin-top:8px; line-height:1.5;">
+          Student pickup records and parent location data are handled with the same
+          security principles Apple applies to enterprise and health data. Built to meet
+          FERPA and district-level privacy expectations.
+        </p>
+      </div>
+
+      <!-- WHO IS AFFECTED -->
+      <div>
+        <div class="section-label">Who This Serves</div>
+        <table style="width:100%; border-collapse:collapse; font-size:11px;">
+          <tr style="background:#F9F6FF;">
+            <td style="padding:8px 10px; font-weight:700; color:#4A1A6B; border-radius:8px 0 0 0;">Parents</td>
+            <td style="padding:8px 10px; color:#555;">Real-time bus location, ETA alerts, pickup confirmation</td>
+          </tr>
+          <tr style="border-top:1px solid #EEE;">
+            <td style="padding:8px 10px; font-weight:700; color:#4A1A6B;">Drivers</td>
+            <td style="padding:8px 10px; color:#555;">Route management, dispatch messaging, incident reporting</td>
+          </tr>
+          <tr style="border-top:1px solid #EEE; background:#F9F6FF;">
+            <td style="padding:8px 10px; font-weight:700; color:#4A1A6B;">Dispatch</td>
+            <td style="padding:8px 10px; color:#555;">Live route monitoring, driver communication, rerouting</td>
+          </tr>
+          <tr style="border-top:1px solid #EEE;">
+            <td style="padding:8px 10px; font-weight:700; color:#4A1A6B;">Admins</td>
+            <td style="padding:8px 10px; color:#555;">District-wide dashboard, trend analytics, incident log</td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-left">
+      <span class="footer-highlight">MagicBusRoute</span> — iOS · SwiftUI · FastAPI<br/>
+      Data based on Fulton County Schools, Atlanta GA · 2024–2026 estimates
+    </div>
+    <div class="footer-right">
+      Built by a <span class="footer-highlight">QA Engineer on Apple's Shared iPad &amp; MDM team</span><br/>
+      Driven by a belief that every student deserves to get to school.
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

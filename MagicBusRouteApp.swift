@@ -6,20 +6,25 @@ struct MagicBusRouteApp: App {
 
     var body: some Scene {
         WindowGroup {
-            WelcomeView()
-                .environmentObject(AppState.shared)
-                .privacyOverlay()
-                .sessionTimeout()
-                .overlay { BiometricLockOverlay() }
-                .onAppear {
-                    NotificationManager.shared.requestPermission()
-                    JailbreakDetector.checkAndReport()
-                }
-                .onChange(of: scenePhase) { _, newPhase in
-                    if newPhase == .active {
-                        BiometricLockManager.shared.lockIfAuthenticated()
+            ZStack {
+                WelcomeView()
+                    .environmentObject(AppState.shared)
+                    .privacyOverlay()
+                    .sessionTimeout()
+                    .overlay { BiometricLockOverlay() }
+                    .onAppear {
+                        NotificationManager.shared.requestPermission()
+                        JailbreakDetector.checkAndReport()
+                        AfterHoursManager.shared.startMonitoring()
                     }
-                }
+                    .onChange(of: scenePhase) { _, newPhase in
+                        if newPhase == .active {
+                            BiometricLockManager.shared.lockIfAuthenticated()
+                        }
+                    }
+
+                AfterHoursView()
+            }
         }
     }
 }

@@ -44,16 +44,18 @@ struct AdminDashboardView: View {
     @EnvironmentObject var appState: AppState
     @State private var selectedTab: AdminTab = .overview
     @State private var incidents: [Incident] = AdminDashboardView.buildIncidents()
+    @State private var showPresentation = false
     @Environment(\.dismiss) private var dismiss
 
     private var drivers: [Driver] { appState.drivers }
 
     enum AdminTab: String, CaseIterable {
-        case overview   = "Overview"
-        case routes     = "Routes"
-        case attendance = "Attendance"
-        case incidents  = "Incidents"
-        case security   = "Security"
+        case overview    = "Overview"
+        case routes      = "Routes"
+        case attendance  = "Attendance"
+        case incidents   = "Incidents"
+        case statistics  = "Statistics"
+        case security    = "Security"
 
         var icon: String {
             switch self {
@@ -61,6 +63,7 @@ struct AdminDashboardView: View {
             case .routes:      return "map.fill"
             case .attendance:  return "person.3.fill"
             case .incidents:   return "exclamationmark.triangle.fill"
+            case .statistics:  return "chart.line.uptrend.xyaxis"
             case .security:    return "shield.lefthalf.filled"
             }
         }
@@ -123,11 +126,12 @@ struct AdminDashboardView: View {
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 16) {
                         switch selectedTab {
-                        case .overview:   overviewTab
-                        case .routes:     routesTab
-                        case .attendance: attendanceTab
-                        case .incidents:  incidentsTab
-                        case .security:   SecurityDashboardView()
+                        case .overview:    overviewTab
+                        case .routes:      routesTab
+                        case .attendance:  attendanceTab
+                        case .incidents:   incidentsTab
+                        case .statistics:  StatisticsView()
+                        case .security:    SecurityDashboardView()
                         }
                         Spacer().frame(height: 24)
                     }
@@ -136,6 +140,9 @@ struct AdminDashboardView: View {
             }
         }
         .navigationBarHidden(true)
+        .fullScreenCover(isPresented: $showPresentation) {
+            BusStatsPresentationView()
+        }
     }
 
     // MARK: - Header
@@ -258,6 +265,34 @@ struct AdminDashboardView: View {
             if !activeIncidents.isEmpty {
                 activeIncidentsBanner
             }
+
+            // Present Stats button
+            Button {
+                showPresentation = true
+            } label: {
+                HStack(spacing: 10) {
+                    Image(systemName: "chart.line.uptrend.xyaxis")
+                        .font(.system(size: 16, weight: .semibold))
+                    Text("Present Impact Stats")
+                        .font(.system(size: 15, weight: .bold, design: .rounded))
+                    Spacer()
+                    Image(systemName: "play.fill")
+                        .font(.system(size: 12))
+                        .foregroundColor(.white.opacity(0.7))
+                }
+                .foregroundColor(.white)
+                .padding(.horizontal, 18)
+                .padding(.vertical, 14)
+                .background(
+                    LinearGradient(
+                        colors: [Color(hex: "4A1A6B"), Color(hex: "8E44AD")],
+                        startPoint: .leading, endPoint: .trailing
+                    )
+                )
+                .cornerRadius(16)
+                .shadow(color: Color(hex: "8E44AD").opacity(0.35), radius: 8, y: 4)
+            }
+            .padding(.horizontal, 16)
         }
     }
 

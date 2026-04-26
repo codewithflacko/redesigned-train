@@ -31,6 +31,7 @@ enum PortalDestination: Hashable {
 // MARK: - Welcome View
 struct WelcomeView: View {
     @State private var path = NavigationPath()
+    @State private var showAcceptInvite = false
 
     var body: some View {
         NavigationStack(path: $path) {
@@ -113,6 +114,19 @@ struct WelcomeView: View {
                         }
                     }
                     .padding(.horizontal, 24)
+                    .padding(.bottom, 16)
+
+                    Button {
+                        showAcceptInvite = true
+                    } label: {
+                        HStack(spacing: 6) {
+                            Image(systemName: "ticket.fill")
+                                .font(.system(size: 13))
+                            Text("Have an invite code?")
+                                .font(.system(size: 14, weight: .semibold, design: .rounded))
+                        }
+                        .foregroundStyle(.white.opacity(0.75))
+                    }
                     .padding(.bottom, 40)
                 }
             }
@@ -124,6 +138,9 @@ struct WelcomeView: View {
                 case .admin:    AdminLoginView()
                 }
             }
+        }
+        .sheet(isPresented: $showAcceptInvite) {
+            AcceptInviteView()
         }
     }
 }

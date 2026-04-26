@@ -42,9 +42,13 @@ final class AuthManager: ObservableObject {
     @Published private(set) var isAuthenticated: Bool = false
     @Published private(set) var currentRole: UserRole? = nil
     @Published private(set) var userId: String? = nil
+    @Published private(set) var requiresOTP: Bool = false
+    @Published private(set) var accessLevel: String = "full"
 
-    // Token is internal — only SecurityMonitor and network calls need it
     private(set) var accessToken: String? = nil
+    private(set) var pendingOTPSession: String? = nil
+    private(set) var pendingEmail: String? = nil
+    private(set) var pendingRole: UserRole? = nil
 
     // ---------------------------------------------------------------------------
     // Config
@@ -83,8 +87,24 @@ final class AuthManager: ObservableObject {
         switch http.statusCode {
         case 200:
             let loginResponse = try JSONDecoder().decode(LoginResponsePayload.self, from: data)
-            persist(token: loginResponse.access_token, userId: loginResponse.user_id, role: role)
-            SecurityMonitor.shared.reportSuccessfulLogin(userId: loginResponse.user_id, role: role)
+
+            if loginResponse.requires_otp, let session = loginResponse.otp_session {
+                // Step 1 complete — store pending state, wait for OTP
+                pendingOTPSession = session
+                pendingEmail      = email
+                pendingRole       = role
+                requiresOTP       = true
+                // Return demo code via thrown value piggyback — callers read AuthManager.demoOTPCode
+                demoOTPCode = loginResponse.demo_code
+                return
+            }
+
+            // Admin path — JWT returned directly (no OTP)
+            if let token = loginResponse.access_token,
+               let uid   = loginResponse.user_id {
+                persist(token: token, userId: uid, role: role, accessLevel: "full")
+                SecurityMonitor.shared.reportSuccessfulLogin(userId: uid, role: role)
+            }
 
         case 401:
             SecurityMonitor.shared.reportFailedLogin(email: email, role: role)
@@ -114,16 +134,90 @@ final class AuthManager: ObservableObject {
     }
 
     // ---------------------------------------------------------------------------
+    // OTP verification
+    // ---------------------------------------------------------------------------
+
+    @Published private(set) var demoOTPCode: String? = nil
+
+    func verifyOTP(code: String) async throws {
+        guard let session = pendingOTPSession,
+              let email   = pendingEmail,
+              let role    = pendingRole else {
+            throw AuthError.networkError("No pending OTP session.")
+        }
+
+        guard let url = URL(string: "\(baseURL)/auth/otp/verify") else { return }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        let body = ["otp_session": session, "code": code]
+        request.httpBody = try JSONEncoder().encode(body)
+
+        let (data, response) = try await NetworkSession.pinned.data(for: request)
+        guard let http = response as? HTTPURLResponse else {
+            throw AuthError.networkError("Invalid response")
+        }
+
+        switch http.statusCode {
+        case 200:
+            let loginResponse = try JSONDecoder().decode(LoginResponsePayload.self, from: data)
+            guard let token = loginResponse.access_token, let uid = loginResponse.user_id else {
+                throw AuthError.networkError("Missing token in response")
+            }
+            clearOTPState()
+            persist(token: token, userId: uid, role: role, accessLevel: loginResponse.role == "view_only" ? "view_only" : "full")
+            SecurityMonitor.shared.reportSuccessfulLogin(userId: uid, role: role)
+            SecurityMonitor.shared.report(.otpVerified, userId: uid, role: role)
+        case 401:
+            throw AuthError.invalidCredentials
+        default:
+            throw AuthError.serverError(http.statusCode)
+        }
+    }
+
+    func clearOTPState() {
+        requiresOTP       = false
+        pendingOTPSession = nil
+        pendingEmail      = nil
+        pendingRole       = nil
+        demoOTPCode       = nil
+    }
+
+    func acceptInviteLogin(token: String, userId: String, email: String) {
+        // Decode access level from JWT without a library
+        if let level = decodeAccessLevel(from: token) {
+            persist(token: token, userId: userId, role: .parent, accessLevel: level)
+        } else {
+            persist(token: token, userId: userId, role: .parent, accessLevel: "view_only")
+        }
+    }
+
+    private func decodeAccessLevel(from token: String) -> String? {
+        let parts = token.split(separator: ".").map(String.init)
+        guard parts.count == 3 else { return nil }
+        var base64 = parts[1]
+            .replacingOccurrences(of: "-", with: "+")
+            .replacingOccurrences(of: "_", with: "/")
+        while base64.count % 4 != 0 { base64 += "=" }
+        guard let data = Data(base64Encoded: base64),
+              let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
+        else { return nil }
+        return json["access_level"] as? String
+    }
+
+    // ---------------------------------------------------------------------------
     // Logout
     // ---------------------------------------------------------------------------
 
     func logout() {
-        let tokenToSend = accessToken  // capture before clearing
-
+        let tokenToSend = accessToken
+        clearOTPState()
         clearKeychain()
-        accessToken    = nil
-        currentRole    = nil
-        userId         = nil
+        accessToken     = nil
+        currentRole     = nil
+        userId          = nil
+        accessLevel     = "full"
         isAuthenticated = false
 
         // Notify backend (fire-and-forget)
@@ -141,11 +235,12 @@ final class AuthManager: ObservableObject {
     // Keychain helpers
     // ---------------------------------------------------------------------------
 
-    private func persist(token: String, userId: String, role: UserRole) {
-        accessToken     = token
-        self.userId     = userId
-        currentRole     = role
-        isAuthenticated = true
+    private func persist(token: String, userId: String, role: UserRole, accessLevel: String = "full") {
+        accessToken        = token
+        self.userId        = userId
+        currentRole        = role
+        self.accessLevel   = accessLevel
+        isAuthenticated    = true
         saveToKeychain(token: token)
     }
 

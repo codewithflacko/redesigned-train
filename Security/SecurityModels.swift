@@ -76,6 +76,10 @@ enum SecurityEventType: String, Codable {
     // Device integrity
     case jailbreakDetected   = "jailbreak_detected"
     case mitmDetected        = "mitm_detected"
+    // 2FA + invite
+    case otpVerified         = "otp_verified"
+    case inviteSent          = "invite_sent"
+    case inviteAccepted      = "invite_accepted"
 }
 
 // MARK: - Security Event (sent to backend)
@@ -226,8 +230,11 @@ struct LoginRequestPayload: Encodable {
 }
 
 struct LoginResponsePayload: Decodable {
-    let access_token: String
+    let access_token: String?
     let token_type: String
-    let role: String
-    let user_id: String
+    let role: String?
+    let user_id: String?
+    let requires_otp: Bool
+    let otp_session: String?
+    let demo_code: String?
 }

@@ -7,30 +7,54 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00126882FFC52DF43D3C9FAE /* security_agent.cpython-39.pyc in Resources */ = {isa = PBXBuildFile; fileRef = 8F54C26F27E27E51BDFA042F /* security_agent.cpython-39.pyc */; };
 		0235B184A4E4EACF53BE7B10 /* SessionTimeoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D256A614148925C462AA1B8 /* SessionTimeoutManager.swift */; };
-		1842F0667317075152169C37 /* MagicBusRouteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_393E7209-2890-4627-A65A-BAD3BE2F8D7D" /* MagicBusRouteApp.swift */; };
 		19FD42FBE84B3A1624E20F7D /* SecurityModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A724F8CEA1EDFE4EF630F8C /* SecurityModels.swift */; };
+		1F2AC19898BB7BD47DF8C261 /* InviteParentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F68034257E6CC632F125A5 /* InviteParentView.swift */; };
+		25169F116B98E957655FB1BF /* event_store.cpython-39.pyc in Resources */ = {isa = PBXBuildFile; fileRef = A066F68FD40A593536C7B619 /* event_store.cpython-39.pyc */; };
 		334DE9C142F24F16A7CAC015 /* NotificationCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E5ECDE2968CB22678C7999 /* NotificationCenterView.swift */; };
 		33D10447AB7394AAA704CA0E /* SecurityMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D141A2FE854CE54E719DC21 /* SecurityMonitor.swift */; };
 		3A9F7BC8D7C7A7070E056C09 /* DispatchLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F20801A599DE175D370B32 /* DispatchLoginView.swift */; };
+		3BACCF91553C13E9A9F7D417 /* event_store.py in Resources */ = {isa = PBXBuildFile; fileRef = DE44C2FBC14B469D1C21992D /* event_store.py */; };
 		3C87BAB726F3A8CFC2A0C07F /* DriverDispatchChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D087306136F5A9ABD89AAD /* DriverDispatchChatView.swift */; };
+		3CD5E050FC72F887AA74A4E2 /* security_agent.py in Resources */ = {isa = PBXBuildFile; fileRef = 7A2BF527DFE67142DFDF5596 /* security_agent.py */; };
 		3F1188BEF152EEDB60C89F0F /* ParentLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE538B1F9544329E05902FFA /* ParentLoginView.swift */; };
+		4807221C1E1769375FCCA8A7 /* main.cpython-39.pyc in Resources */ = {isa = PBXBuildFile; fileRef = AB26D10929C038B8AF2F1BA4 /* main.cpython-39.pyc */; };
+		4CBA3863B7149F4716C66588 /* MagicBusRoute.xcodeproj in Resources */ = {isa = PBXBuildFile; fileRef = "TEMP_555A34AB-F348-4550-BD1D-B4F499A934CC" /* MagicBusRoute.xcodeproj */; };
 		525B83A3224CA7092F2D9D79 /* DispatchDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B8F8E6FD1978107790A2D7 /* DispatchDashboardView.swift */; };
-		555E0CB3CD1358B9E69B26F3 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_6B17B3B9-9B4A-4903-9D49-1974F501FD07" /* WelcomeView.swift */; };
 		5BC188653D4A35266EB0FADC /* ParentDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA61CEF9C0DBB8665CC69813 /* ParentDashboardView.swift */; };
-		61B81E16EC39B224B947441B /* MagicBusRoute.xcodeproj in Resources */ = {isa = PBXBuildFile; fileRef = "TEMP_AFE00342-3788-47E6-B5B9-EFDBAB197E32" /* MagicBusRoute.xcodeproj */; };
-		6817B6710EC83159DC220CF5 /* MagicBusRoute.dependency-scan.dia in Resources */ = {isa = PBXBuildFile; fileRef = "TEMP_903409B5-4570-4CD1-BE75-A99DCDC77C53" /* MagicBusRoute.dependency-scan.dia */; };
+		5C7225D16467944E74C278E2 /* MagicBusRoute.dependency-scan.dia in Resources */ = {isa = PBXBuildFile; fileRef = "TEMP_705850B5-8115-4FAC-AA6E-E4D3A3FEC99B" /* MagicBusRoute.dependency-scan.dia */; };
+		63C211E3D2523109918FB897 /* database.py in Resources */ = {isa = PBXBuildFile; fileRef = 784402FA94E00F88DB549628 /* database.py */; };
+		69424667463C9B106D659779 /* MagicBusRouteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_2B8B7ACD-33F4-4EB6-9A82-E055921165EA" /* MagicBusRouteApp.swift */; };
+		8272B95FC648FF765527A47F /* mbr_security.db-shm in Resources */ = {isa = PBXBuildFile; fileRef = 5BAE4051C7EB7D814E671A4D /* mbr_security.db-shm */; };
+		8991258C28B4EE320C7B5BA1 /* models.cpython-39.pyc in Resources */ = {isa = PBXBuildFile; fileRef = 504080E6066992A8BCA6AB93 /* models.cpython-39.pyc */; };
+		8F7F6EFBC6850B10BD826492 /* mbr_security.db in Resources */ = {isa = PBXBuildFile; fileRef = 9A1F10A77CE07977BEC5ADEB /* mbr_security.db */; };
+		907B680691454B18BD3E1478 /* AfterHoursView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781892BA1EDE68793CA3B164 /* AfterHoursView.swift */; };
 		9AA21DEEBEB0779A1C04DCE6 /* VoiceAnnouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF8A564F03EC53734ADBDEB /* VoiceAnnouncer.swift */; };
+		9B2139ECC4DB365A2FF7D243 /* requirements.txt in Resources */ = {isa = PBXBuildFile; fileRef = 477CC3B2142134FECF4966A6 /* requirements.txt */; };
 		9D4875883F2AFF6E694362C6 /* BiometricLockManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF64F7D1D5D59B2E3648449E /* BiometricLockManager.swift */; };
+		9E797E97331B81FDC47BCCB0 /* auth.cpython-39.pyc in Resources */ = {isa = PBXBuildFile; fileRef = 2EF54ECD1FB1638EFFCDA2A4 /* auth.cpython-39.pyc */; };
 		A0EBB789751D25555EC9CCBB /* BusModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DCD52C6D20835CE756BCE14 /* BusModels.swift */; };
 		A119428B003F94BCC943C14B /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C42C5043F06C901A37CCD3E /* NotificationManager.swift */; };
+		A26A9F7E807106B92258BE15 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B26479975E4B0EC197A48139 /* Charts.framework */; };
 		A3A165706CBFBD070196DB21 /* NetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA430CCB27200355D0298668 /* NetworkSession.swift */; };
 		A476A66DFF774CE9CDBBA22F /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54986681A0F459698DEF416 /* AppState.swift */; };
+		A4FCACE67679F1FEE8C661B1 /* BusStatsPresentationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF97A39620FB30A97B2C1C44 /* BusStatsPresentationView.swift */; };
+		A96EC1FDA06D5198786FFD63 /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45A9DD036B4B2F7CF094914 /* StatisticsView.swift */; };
+		AB0643A21FB319644E653179 /* database.cpython-39.pyc in Resources */ = {isa = PBXBuildFile; fileRef = 9E239D0075D4563A08849A83 /* database.cpython-39.pyc */; };
 		AB431C3D66FF8CC42BEA56A6 /* PrivacyOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734E21C7A440124EB644C1DE /* PrivacyOverlay.swift */; };
+		B82C1E644A993850F37A8540 /* AcceptInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4398F7066E13882CCB836E4 /* AcceptInviteView.swift */; };
+		C223170C76B962847C39EFC9 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = "TEMP_01700E26-74D9-4994-9551-EDC48767868A" /* WelcomeView.swift */; };
+		C8AC45996AF7D5AA8D2BFBAD /* main.py in Resources */ = {isa = PBXBuildFile; fileRef = 9AEA181D365025D6DEEE6104 /* main.py */; };
+		C9DF934D3970F0EB08675862 /* models.py in Resources */ = {isa = PBXBuildFile; fileRef = 877731506D92A673F44F6E96 /* models.py */; };
+		C9FF2DA781B67A0756BCD58E /* mbr_security.db-wal in Resources */ = {isa = PBXBuildFile; fileRef = 65999C147957DB2BCC8983A3 /* mbr_security.db-wal */; };
 		CA3B5A3729BFD9BC80B655C4 /* SecurityDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667F3A3297F8CD8BB73B78DF /* SecurityDashboardView.swift */; };
 		CC920E28549F702BA1BC8568 /* ChatStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673135203BF5A83659A3CE23 /* ChatStore.swift */; };
 		CDF88FC8015219C6CFCE523A /* DriverDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB4016EA51341C199A41609 /* DriverDashboardView.swift */; };
+		D4A120101AA06FBA7DE9B4EA /* OTPVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C96FE243202E99E59F890B /* OTPVerificationView.swift */; };
 		DD66869FCCBF279A595C36F3 /* AdminLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB69E6301081CF184F49792E /* AdminLoginView.swift */; };
+		E6CFFAA618C2471F77E91DAC /* auth.py in Resources */ = {isa = PBXBuildFile; fileRef = 874DC26E6696040D1C1E029A /* auth.py */; };
+		E9F3D49A832E13342EC66579 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = "TEMP_C58BE8D3-F3FA-4B87-987E-FB06A9DBD160" /* README.md */; };
 		F31FFF8AA6C32B42910CCCBA /* DriverLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE02E07720AFC40227F1A91 /* DriverLoginView.swift */; };
 		F4958C6BBC2281A5A9DB17A3 /* JailbreakDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356356D21929438219953FDB /* JailbreakDetector.swift */; };
 		F7D5E69D8242B025484D3E40 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518F96E5BC8DE0F3BB3D195 /* AuthManager.swift */; };
@@ -39,35 +63,70 @@
 
 /* Begin PBXFileReference section */
 		28F20801A599DE175D370B32 /* DispatchLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchLoginView.swift; sourceTree = "<group>"; };
+		2EF54ECD1FB1638EFFCDA2A4 /* auth.cpython-39.pyc */ = {isa = PBXFileReference; lastKnownFileType = file; path = "auth.cpython-39.pyc"; sourceTree = "<group>"; };
 		3154B4D4CEE2FC9B8E0B6E9A /* AdminDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminDashboardView.swift; sourceTree = "<group>"; };
 		356356D21929438219953FDB /* JailbreakDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JailbreakDetector.swift; sourceTree = "<group>"; };
+		38C96FE243202E99E59F890B /* OTPVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPVerificationView.swift; sourceTree = "<group>"; };
 		38D087306136F5A9ABD89AAD /* DriverDispatchChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverDispatchChatView.swift; sourceTree = "<group>"; };
 		3CB4016EA51341C199A41609 /* DriverDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverDashboardView.swift; sourceTree = "<group>"; };
 		3D141A2FE854CE54E719DC21 /* SecurityMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityMonitor.swift; sourceTree = "<group>"; };
+		477CC3B2142134FECF4966A6 /* requirements.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = requirements.txt; sourceTree = "<group>"; };
 		48E5ECDE2968CB22678C7999 /* NotificationCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterView.swift; sourceTree = "<group>"; };
+		504080E6066992A8BCA6AB93 /* models.cpython-39.pyc */ = {isa = PBXFileReference; lastKnownFileType = file; path = "models.cpython-39.pyc"; sourceTree = "<group>"; };
 		51C5FBE223031B954DE6A5B7 /* MagicBusRoute.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = MagicBusRoute.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5BAE4051C7EB7D814E671A4D /* mbr_security.db-shm */ = {isa = PBXFileReference; lastKnownFileType = file; path = "mbr_security.db-shm"; sourceTree = "<group>"; };
+		65999C147957DB2BCC8983A3 /* mbr_security.db-wal */ = {isa = PBXFileReference; lastKnownFileType = text; path = "mbr_security.db-wal"; sourceTree = "<group>"; };
 		667F3A3297F8CD8BB73B78DF /* SecurityDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityDashboardView.swift; sourceTree = "<group>"; };
 		673135203BF5A83659A3CE23 /* ChatStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatStore.swift; sourceTree = "<group>"; };
 		6DCD52C6D20835CE756BCE14 /* BusModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusModels.swift; sourceTree = "<group>"; };
 		734E21C7A440124EB644C1DE /* PrivacyOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyOverlay.swift; sourceTree = "<group>"; };
+		781892BA1EDE68793CA3B164 /* AfterHoursView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AfterHoursView.swift; sourceTree = "<group>"; };
+		784402FA94E00F88DB549628 /* database.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = database.py; sourceTree = "<group>"; };
+		7A2BF527DFE67142DFDF5596 /* security_agent.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = security_agent.py; sourceTree = "<group>"; };
+		874DC26E6696040D1C1E029A /* auth.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = auth.py; sourceTree = "<group>"; };
+		877731506D92A673F44F6E96 /* models.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = models.py; sourceTree = "<group>"; };
 		8A724F8CEA1EDFE4EF630F8C /* SecurityModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityModels.swift; sourceTree = "<group>"; };
 		8D256A614148925C462AA1B8 /* SessionTimeoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTimeoutManager.swift; sourceTree = "<group>"; };
+		8F54C26F27E27E51BDFA042F /* security_agent.cpython-39.pyc */ = {isa = PBXFileReference; lastKnownFileType = file; path = "security_agent.cpython-39.pyc"; sourceTree = "<group>"; };
+		96F68034257E6CC632F125A5 /* InviteParentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteParentView.swift; sourceTree = "<group>"; };
+		9A1F10A77CE07977BEC5ADEB /* mbr_security.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = mbr_security.db; sourceTree = "<group>"; };
+		9AEA181D365025D6DEEE6104 /* main.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = main.py; sourceTree = "<group>"; };
 		9C42C5043F06C901A37CCD3E /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		9E239D0075D4563A08849A83 /* database.cpython-39.pyc */ = {isa = PBXFileReference; lastKnownFileType = file; path = "database.cpython-39.pyc"; sourceTree = "<group>"; };
+		A066F68FD40A593536C7B619 /* event_store.cpython-39.pyc */ = {isa = PBXFileReference; lastKnownFileType = file; path = "event_store.cpython-39.pyc"; sourceTree = "<group>"; };
+		A45A9DD036B4B2F7CF094914 /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
+		AB26D10929C038B8AF2F1BA4 /* main.cpython-39.pyc */ = {isa = PBXFileReference; lastKnownFileType = file; path = "main.cpython-39.pyc"; sourceTree = "<group>"; };
+		B26479975E4B0EC197A48139 /* Charts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Charts.framework; path = System/Library/Frameworks/Charts.framework; sourceTree = SDKROOT; };
 		BA430CCB27200355D0298668 /* NetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSession.swift; sourceTree = "<group>"; };
 		BA61CEF9C0DBB8665CC69813 /* ParentDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentDashboardView.swift; sourceTree = "<group>"; };
 		BB69E6301081CF184F49792E /* AdminLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminLoginView.swift; sourceTree = "<group>"; };
 		D0B8F8E6FD1978107790A2D7 /* DispatchDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchDashboardView.swift; sourceTree = "<group>"; };
+		DE44C2FBC14B469D1C21992D /* event_store.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = event_store.py; sourceTree = "<group>"; };
 		DE538B1F9544329E05902FFA /* ParentLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentLoginView.swift; sourceTree = "<group>"; };
+		DF97A39620FB30A97B2C1C44 /* BusStatsPresentationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStatsPresentationView.swift; sourceTree = "<group>"; };
 		E518F96E5BC8DE0F3BB3D195 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		EDE02E07720AFC40227F1A91 /* DriverLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverLoginView.swift; sourceTree = "<group>"; };
 		EEF8A564F03EC53734ADBDEB /* VoiceAnnouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceAnnouncer.swift; sourceTree = "<group>"; };
+		F4398F7066E13882CCB836E4 /* AcceptInviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptInviteView.swift; sourceTree = "<group>"; };
 		F54986681A0F459698DEF416 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		FF64F7D1D5D59B2E3648449E /* BiometricLockManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricLockManager.swift; sourceTree = "<group>"; };
-		"TEMP_393E7209-2890-4627-A65A-BAD3BE2F8D7D" /* MagicBusRouteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicBusRouteApp.swift; sourceTree = "<group>"; };
-		"TEMP_6B17B3B9-9B4A-4903-9D49-1974F501FD07" /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
-		"TEMP_903409B5-4570-4CD1-BE75-A99DCDC77C53" /* MagicBusRoute.dependency-scan.dia */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MagicBusRoute.dependency-scan.dia"; sourceTree = "<group>"; };
-		"TEMP_AFE00342-3788-47E6-B5B9-EFDBAB197E32" /* MagicBusRoute.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = MagicBusRoute.xcodeproj; sourceTree = "<group>"; };
+		"TEMP_01700E26-74D9-4994-9551-EDC48767868A" /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		"TEMP_2B8B7ACD-33F4-4EB6-9A82-E055921165EA" /* MagicBusRouteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicBusRouteApp.swift; sourceTree = "<group>"; };
+		"TEMP_555A34AB-F348-4550-BD1D-B4F499A934CC" /* MagicBusRoute.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = MagicBusRoute.xcodeproj; sourceTree = "<group>"; };
+		"TEMP_705850B5-8115-4FAC-AA6E-E4D3A3FEC99B" /* MagicBusRoute.dependency-scan.dia */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MagicBusRoute.dependency-scan.dia"; sourceTree = "<group>"; };
+		"TEMP_C58BE8D3-F3FA-4B87-987E-FB06A9DBD160" /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6CFF51E1DCB6A1A4A4586C03 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A26A9F7E807106B92258BE15 /* Charts.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		011F4670DF261F7263167F6B /* Views */ = {
@@ -77,9 +136,18 @@
 				3E296EFC5DB56B259F09D1DE /* Dispatch */,
 				4CB154FDDDCAD1EEF528E340 /* Driver */,
 				D26A54B2F5949937DC80CE25 /* Parent */,
+				20023A272DC91DB979C1DF48 /* Presentation */,
 				C296B8EB39DA12A6082B6053 /* Shared */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		0DDBAC1E435D3E8C8F9FE5D5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B26479975E4B0EC197A48139 /* Charts.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		0F3E2AFB62556BE732820378 /* Models */ = {
@@ -88,6 +156,14 @@
 				6DCD52C6D20835CE756BCE14 /* BusModels.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		20023A272DC91DB979C1DF48 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				DF97A39620FB30A97B2C1C44 /* BusStatsPresentationView.swift */,
+			);
+			path = Presentation;
 			sourceTree = "<group>";
 		};
 		26220A5307D943E4EF34E257 /* Products */ = {
@@ -109,6 +185,19 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		36EBEC3510C4075A7FB73715 /* __pycache__ */ = {
+			isa = PBXGroup;
+			children = (
+				2EF54ECD1FB1638EFFCDA2A4 /* auth.cpython-39.pyc */,
+				9E239D0075D4563A08849A83 /* database.cpython-39.pyc */,
+				A066F68FD40A593536C7B619 /* event_store.cpython-39.pyc */,
+				AB26D10929C038B8AF2F1BA4 /* main.cpython-39.pyc */,
+				504080E6066992A8BCA6AB93 /* models.cpython-39.pyc */,
+				8F54C26F27E27E51BDFA042F /* security_agent.cpython-39.pyc */,
+			);
+			path = __pycache__;
+			sourceTree = "<group>";
+		};
 		3E296EFC5DB56B259F09D1DE /* Dispatch */ = {
 			isa = PBXGroup;
 			children = (
@@ -127,12 +216,31 @@
 			path = Driver;
 			sourceTree = "<group>";
 		};
+		5BD08A926D3E3CABA460E621 /* Backend */ = {
+			isa = PBXGroup;
+			children = (
+				874DC26E6696040D1C1E029A /* auth.py */,
+				784402FA94E00F88DB549628 /* database.py */,
+				DE44C2FBC14B469D1C21992D /* event_store.py */,
+				9AEA181D365025D6DEEE6104 /* main.py */,
+				9A1F10A77CE07977BEC5ADEB /* mbr_security.db */,
+				5BAE4051C7EB7D814E671A4D /* mbr_security.db-shm */,
+				65999C147957DB2BCC8983A3 /* mbr_security.db-wal */,
+				877731506D92A673F44F6E96 /* models.py */,
+				477CC3B2142134FECF4966A6 /* requirements.txt */,
+				7A2BF527DFE67142DFDF5596 /* security_agent.py */,
+				36EBEC3510C4075A7FB73715 /* __pycache__ */,
+			);
+			path = Backend;
+			sourceTree = "<group>";
+		};
 		6D9DB832E8F33A7ABFD0C6C4 /* Admin */ = {
 			isa = PBXGroup;
 			children = (
 				3154B4D4CEE2FC9B8E0B6E9A /* AdminDashboardView.swift */,
 				BB69E6301081CF184F49792E /* AdminLoginView.swift */,
 				667F3A3297F8CD8BB73B78DF /* SecurityDashboardView.swift */,
+				A45A9DD036B4B2F7CF094914 /* StatisticsView.swift */,
 			);
 			path = Admin;
 			sourceTree = "<group>";
@@ -155,18 +263,21 @@
 		BD206EA3253DE3830C9028A2 = {
 			isa = PBXGroup;
 			children = (
+				5BD08A926D3E3CABA460E621 /* Backend */,
 				0F3E2AFB62556BE732820378 /* Models */,
 				9679381C76214F5F3587477F /* Security */,
 				2956911D05FD4A6E88F0F47C /* Utilities */,
 				011F4670DF261F7263167F6B /* Views */,
+				0DDBAC1E435D3E8C8F9FE5D5 /* Frameworks */,
 				26220A5307D943E4EF34E257 /* Products */,
-				D9E77AEB2F9C45A600895775 /* Recovered References */,
+				D9E1F7292F9DE50900CCEE98 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
 		C296B8EB39DA12A6082B6053 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				781892BA1EDE68793CA3B164 /* AfterHoursView.swift */,
 				38D087306136F5A9ABD89AAD /* DriverDispatchChatView.swift */,
 			);
 			path = Shared;
@@ -175,25 +286,29 @@
 		D26A54B2F5949937DC80CE25 /* Parent */ = {
 			isa = PBXGroup;
 			children = (
+				F4398F7066E13882CCB836E4 /* AcceptInviteView.swift */,
+				96F68034257E6CC632F125A5 /* InviteParentView.swift */,
 				48E5ECDE2968CB22678C7999 /* NotificationCenterView.swift */,
+				38C96FE243202E99E59F890B /* OTPVerificationView.swift */,
 				BA61CEF9C0DBB8665CC69813 /* ParentDashboardView.swift */,
 				DE538B1F9544329E05902FFA /* ParentLoginView.swift */,
 			);
 			path = Parent;
 			sourceTree = "<group>";
 		};
-		D9E77AEB2F9C45A600895775 /* Recovered References */ = {
+		D9E1F7292F9DE50900CCEE98 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				"TEMP_393E7209-2890-4627-A65A-BAD3BE2F8D7D" /* MagicBusRouteApp.swift */,
-				"TEMP_6B17B3B9-9B4A-4903-9D49-1974F501FD07" /* WelcomeView.swift */,
-				"TEMP_903409B5-4570-4CD1-BE75-A99DCDC77C53" /* MagicBusRoute.dependency-scan.dia */,
-				"TEMP_AFE00342-3788-47E6-B5B9-EFDBAB197E32" /* MagicBusRoute.xcodeproj */,
+				"TEMP_2B8B7ACD-33F4-4EB6-9A82-E055921165EA" /* MagicBusRouteApp.swift */,
+				"TEMP_01700E26-74D9-4994-9551-EDC48767868A" /* WelcomeView.swift */,
+				"TEMP_705850B5-8115-4FAC-AA6E-E4D3A3FEC99B" /* MagicBusRoute.dependency-scan.dia */,
+				"TEMP_555A34AB-F348-4550-BD1D-B4F499A934CC" /* MagicBusRoute.xcodeproj */,
+				"TEMP_C58BE8D3-F3FA-4B87-987E-FB06A9DBD160" /* README.md */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
-		D9E77AEC2F9C45A800895775 /* Products */ = {
+		D9E1F72A2F9DE50A00CCEE98 /* Products */ = {
 			isa = PBXGroup;
 			name = Products;
 			sourceTree = "<group>";
@@ -207,6 +322,7 @@
 			buildPhases = (
 				FCFDA7D94047F28AF4DCA9C2 /* Sources */,
 				551E342D3E85382D1CE801B6 /* Resources */,
+				6CFF51E1DCB6A1A4A4586C03 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -247,8 +363,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = D9E77AEC2F9C45A800895775 /* Products */;
-					ProjectRef = "TEMP_AFE00342-3788-47E6-B5B9-EFDBAB197E32" /* MagicBusRoute.xcodeproj */;
+					ProductGroup = D9E1F72A2F9DE50A00CCEE98 /* Products */;
+					ProjectRef = "TEMP_555A34AB-F348-4550-BD1D-B4F499A934CC" /* MagicBusRoute.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -263,8 +379,25 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6817B6710EC83159DC220CF5 /* MagicBusRoute.dependency-scan.dia in Resources */,
-				61B81E16EC39B224B947441B /* MagicBusRoute.xcodeproj in Resources */,
+				5C7225D16467944E74C278E2 /* MagicBusRoute.dependency-scan.dia in Resources */,
+				4CBA3863B7149F4716C66588 /* MagicBusRoute.xcodeproj in Resources */,
+				E9F3D49A832E13342EC66579 /* README.md in Resources */,
+				9E797E97331B81FDC47BCCB0 /* auth.cpython-39.pyc in Resources */,
+				E6CFFAA618C2471F77E91DAC /* auth.py in Resources */,
+				AB0643A21FB319644E653179 /* database.cpython-39.pyc in Resources */,
+				63C211E3D2523109918FB897 /* database.py in Resources */,
+				25169F116B98E957655FB1BF /* event_store.cpython-39.pyc in Resources */,
+				3BACCF91553C13E9A9F7D417 /* event_store.py in Resources */,
+				4807221C1E1769375FCCA8A7 /* main.cpython-39.pyc in Resources */,
+				C8AC45996AF7D5AA8D2BFBAD /* main.py in Resources */,
+				8F7F6EFBC6850B10BD826492 /* mbr_security.db in Resources */,
+				8272B95FC648FF765527A47F /* mbr_security.db-shm in Resources */,
+				C9FF2DA781B67A0756BCD58E /* mbr_security.db-wal in Resources */,
+				8991258C28B4EE320C7B5BA1 /* models.cpython-39.pyc in Resources */,
+				C9DF934D3970F0EB08675862 /* models.py in Resources */,
+				9B2139ECC4DB365A2FF7D243 /* requirements.txt in Resources */,
+				00126882FFC52DF43D3C9FAE /* security_agent.cpython-39.pyc in Resources */,
+				3CD5E050FC72F887AA74A4E2 /* security_agent.py in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,23 +408,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B82C1E644A993850F37A8540 /* AcceptInviteView.swift in Sources */,
 				FA3A97C62629104FFEE9C0FA /* AdminDashboardView.swift in Sources */,
 				DD66869FCCBF279A595C36F3 /* AdminLoginView.swift in Sources */,
+				907B680691454B18BD3E1478 /* AfterHoursView.swift in Sources */,
 				A476A66DFF774CE9CDBBA22F /* AppState.swift in Sources */,
 				F7D5E69D8242B025484D3E40 /* AuthManager.swift in Sources */,
 				9D4875883F2AFF6E694362C6 /* BiometricLockManager.swift in Sources */,
 				A0EBB789751D25555EC9CCBB /* BusModels.swift in Sources */,
+				A4FCACE67679F1FEE8C661B1 /* BusStatsPresentationView.swift in Sources */,
 				CC920E28549F702BA1BC8568 /* ChatStore.swift in Sources */,
 				525B83A3224CA7092F2D9D79 /* DispatchDashboardView.swift in Sources */,
 				3A9F7BC8D7C7A7070E056C09 /* DispatchLoginView.swift in Sources */,
 				CDF88FC8015219C6CFCE523A /* DriverDashboardView.swift in Sources */,
 				3C87BAB726F3A8CFC2A0C07F /* DriverDispatchChatView.swift in Sources */,
 				F31FFF8AA6C32B42910CCCBA /* DriverLoginView.swift in Sources */,
+				1F2AC19898BB7BD47DF8C261 /* InviteParentView.swift in Sources */,
 				F4958C6BBC2281A5A9DB17A3 /* JailbreakDetector.swift in Sources */,
-				1842F0667317075152169C37 /* MagicBusRouteApp.swift in Sources */,
+				69424667463C9B106D659779 /* MagicBusRouteApp.swift in Sources */,
 				A3A165706CBFBD070196DB21 /* NetworkSession.swift in Sources */,
 				334DE9C142F24F16A7CAC015 /* NotificationCenterView.swift in Sources */,
 				A119428B003F94BCC943C14B /* NotificationManager.swift in Sources */,
+				D4A120101AA06FBA7DE9B4EA /* OTPVerificationView.swift in Sources */,
 				5BC188653D4A35266EB0FADC /* ParentDashboardView.swift in Sources */,
 				3F1188BEF152EEDB60C89F0F /* ParentLoginView.swift in Sources */,
 				AB431C3D66FF8CC42BEA56A6 /* PrivacyOverlay.swift in Sources */,
@@ -299,8 +437,9 @@
 				19FD42FBE84B3A1624E20F7D /* SecurityModels.swift in Sources */,
 				33D10447AB7394AAA704CA0E /* SecurityMonitor.swift in Sources */,
 				0235B184A4E4EACF53BE7B10 /* SessionTimeoutManager.swift in Sources */,
+				A96EC1FDA06D5198786FFD63 /* StatisticsView.swift in Sources */,
 				9AA21DEEBEB0779A1C04DCE6 /* VoiceAnnouncer.swift in Sources */,
-				555E0CB3CD1358B9E69B26F3 /* WelcomeView.swift in Sources */,
+				C223170C76B962847C39EFC9 /* WelcomeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

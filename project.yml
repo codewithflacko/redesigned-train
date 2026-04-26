@@ -16,6 +16,8 @@ targets:
         excludes:
           - "**/.git/**"
           - "project.yml"
+    dependencies:
+      - sdk: Charts.framework
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.magicbusroute.app

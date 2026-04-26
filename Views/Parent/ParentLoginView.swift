@@ -5,7 +5,9 @@ struct ParentLoginView: View {
     @State private var password = ""
     @State private var isLoading = false
     @State private var showDashboard = false
+    @State private var showOTP = false
     @State private var authError: String? = nil
+    @ObservedObject private var auth = AuthManager.shared
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
@@ -148,6 +150,14 @@ struct ParentLoginView: View {
         .fullScreenCover(isPresented: $showDashboard) {
             ParentDashboardView()
         }
+        .fullScreenCover(isPresented: $showOTP) {
+            OTPVerificationView(role: .parent) {
+                showOTP = false
+                showDashboard = true
+            } onCancel: {
+                showOTP = false
+            }
+        }
     }
 
     private func handleLogin() {
@@ -159,9 +169,13 @@ struct ParentLoginView: View {
         isLoading = true
         Task {
             do {
-                try await AuthManager.shared.login(email: email, password: password, role: .parent)
+                try await auth.login(email: email, password: password, role: .parent)
                 isLoading = false
-                showDashboard = true
+                if auth.requiresOTP {
+                    showOTP = true
+                } else {
+                    showDashboard = true
+                }
             } catch {
                 isLoading = false
                 authError = error.localizedDescription
